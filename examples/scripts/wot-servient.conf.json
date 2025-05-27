@@ -12,7 +12,7 @@
         "port": 5683
     },
     "mqtt": {
-        "broker": "mqtt://test.mosquitto.org",
+        "broker": "mqtt://localhost:1883",
         "_username": "username",
         "_password": "password",
         "_clientId": "uniqueId",
