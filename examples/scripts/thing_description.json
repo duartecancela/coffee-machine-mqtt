@@ -1,0 +1,33 @@
+{
+    "@context": [
+        "https://www.w3.org/2019/wot/td/v1",
+        "https://www.w3.org/2022/wot/td/v1.1",
+        {
+            "@language": "en"
+        }
+    ],
+    "@type": "Thing",
+    "title": "CoffeeMachine",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "security": ["nosec_sc"],
+    "properties": {
+        "availableResourceLevel": {
+            "type": "integer",
+            "observable": false,
+            "readOnly": true,
+            "writeOnly": false,
+            "forms": [
+                {
+                    "href": "mqtt://localhost:1883/CoffeeMachine/properties/availableResourceLevel",
+                    "contentType": "application/json",
+                    "op": ["readproperty"]
+                }
+            ]
+        }
+    },
+    "id": "urn:dev:wot:coffee-machine"
+}
