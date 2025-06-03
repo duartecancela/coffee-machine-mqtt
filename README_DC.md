@@ -2,6 +2,8 @@
 
 Este projeto implementa uma máquina de café baseada na framework [Eclipse Thingweb™ node-wot](https://github.com/eclipse-thingweb/node-wot), utilizando **MQTT** como protocolo de comunicação entre um `servient` produtor e um `servient` consumidor.
 
+Os ficheiros da framework original **não foram modificados**. Foram criados scripts próprios (`coffee_producer.js`, `coffee_consumer_manual.js`, etc.) que utilizam a biblioteca `node-wot` para construir e expor a Thing Description, bem como para consumir e interagir com a máquina.
+
 ---
 
 ## 📦 Estrutura do Projeto
@@ -51,6 +53,7 @@ A Thing Description (`thing_description.json`) foi adaptada para incluir **bindi
 ```
 
 O mesmo foi feito para todas as propriedades, ações e eventos.
+As Thing Descriptions foram definidas diretamente nos scripts JS como objetos embutidos, com os `forms` estruturados de acordo com os [binding templates do W3C](https://github.com/w3c/wot-binding-templates).
 
 ---
 
@@ -101,6 +104,26 @@ node examples/scripts/coffee_consumer_manual.js
 ```bash
 mosquitto_sub -h localhost -t "#" -v
 ```
+
+---
+
+---
+
+## 🧪 Testes com MQTT Explorer
+
+Podes testar todos os tópicos e interações no [MQTT Explorer](https://mqtt-explorer.com):
+
+### 📥 Tópicos a observar ou publicar
+
+| Tipo        | Tópico MQTT                                       | Operação                | Exemplo de Payload             |
+| ----------- | ------------------------------------------------- | ----------------------- | ------------------------------ |
+| Propriedade | `CoffeeMachine/properties/availableResourceLevel` | Observe / Read          | _(Automático)_                 |
+| Propriedade | `CoffeeMachine/properties/possibleDrinks`         | Read                    | _(Automático)_                 |
+| Propriedade | `CoffeeMachine/properties/maintenanceNeeded`      | Read                    | _(Automático)_                 |
+| Ação        | `CoffeeMachine/actions/makeDrink`                 | Publish (Invoke Action) | `{}`                           |
+| Evento      | `CoffeeMachine/events/outOfResource`              | Subscribe (Evento)      | `"Water level critically low"` |
+
+> 💡 Ao pedir bebidas no consumidor (`coffee_consumer_manual.js`), haverá atualizações em `availableResourceLevel` e possivelmente o evento `outOfResource`.
 
 ---
 
